@@ -1,5 +1,13 @@
+/*the question is from codewar.com. It states to sort an array of arrays, and in each array you may have a mixed of numbers and arrays. Whwn you have to compare a number vs an array, compare the number with the array's sum. You also have to sort the array. You have two options to sort, ie. ascending or descending */
+//write a function deepSort(arr,asc)
+// given [1, [2, 3, [4, 5, [9, 11], 1, 8], 6], [20, 7, 8]], false)
+// the output should be [[[[11, 9], 8, 5, 4, 1], 6, 3, 2], [20, 8, 7], 1]
+
+//the idea is to use recursive calls to sort the outer array based on their sums, after each recursive call, the array will be "deeper" or //the dimmension will be lower
+
 function deepSum(arr){
   var result = 0;
+  //base case when arr is just a number
   if(typeof(arr) === "number"){
     return arr;
   }
@@ -7,14 +15,14 @@ function deepSum(arr){
     if(typeof(arr[i]) === "number")
       result += arr[i];
     else
-      result += deepSum(arr[i]);
+      result += deepSum(arr[i]); //recurssion occurs
   }
   return result;
 }
 
 function deepSort(arr, asc) {
   for(var i=0;i<arr.length;i++){
-    if(Array.isArray(arr[i]))
+    if(Array.isArray(arr[i]))   //only use recursion when arr[i] is another array
       deepSort(arr[i], asc);
   }
   
