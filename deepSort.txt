@@ -1,0 +1,25 @@
+function deepSum(arr){
+  var result = 0;
+  if(typeof(arr) === "number"){
+    return arr;
+  }
+  for(var i=0;i<arr.length;i++){
+    if(typeof(arr[i]) === "number")
+      result += arr[i];
+    else
+      result += deepSum(arr[i]);
+  }
+  return result;
+}
+
+function deepSort(arr, asc) {
+  for(var i=0;i<arr.length;i++){
+    if(Array.isArray(arr[i]))
+      deepSort(arr[i], asc);
+  }
+  
+  if(asc)
+    return arr.sort(function(a,b){return deepSum(a) - deepSum(b);});
+  else
+    return arr.sort(function(a,b){return deepSum(b) - deepSum(a);});
+}
